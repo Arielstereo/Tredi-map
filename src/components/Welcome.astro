@@ -3,6 +3,28 @@ import tredi from "../assets/tredi.png";
 import mapa from "../assets/mapa.png";
 import { Image } from "astro:assets";
 import { Font } from 'astro:assets';
+
+const stats = [
+  { name: "Buenos Aires", tonnage: 3526, level: 5, cssClass: "buenos-aires" },
+  { name: "Córdoba", tonnage: 130, level: 4, cssClass: "cordoba" },
+  { name: "Santa Fe", tonnage: 275, level: 5, cssClass: "santa-fe" },
+  { name: "Neuquén", tonnage: 130, level: 4, cssClass: "neuquen" },
+  { name: "Salta", tonnage: 52, level: 2, cssClass: "salta" },
+  { name: "Mendoza", tonnage: 76, level: 2, cssClass: "mendoza" },
+  { name: "Tucumán", tonnage: 28, level: 1, cssClass: "tucuman" },
+  { name: "Entre Ríos", tonnage: 181, level: 3, cssClass: "entre-rios" },
+  { name: "Catamarca", tonnage: 34, level: 1, cssClass: "catamarca" },
+  { name: "Chubut", tonnage: 228, level: 5, cssClass: "chubut" },
+  { name: "Jujuy", tonnage: 134, level: 3, cssClass: "jujuy" },
+  { name: "Misiones", tonnage: 5, level: 1, cssClass: "misiones" },
+  { name: "Rio Negro", tonnage: 105, level: 1, cssClass: "rio-negro" },
+  { name: "San Luis", tonnage: 4, level: 1, cssClass: "san-luis" },
+  { name: "Santiago del Estero", tonnage: 24, level: 1, cssClass: "santiago" },
+  { name: "CABA", tonnage: 15, level: 1, cssClass: "caba" },
+];
+
+stats.sort((a, b) => a.name.localeCompare(b.name));
+const totalTonnage = stats.reduce((sum, stat) => sum + stat.tonnage, 0);
 ---
 
 <Font cssVariable='--font-inter' preload />
@@ -20,125 +42,21 @@ import { Font } from 'astro:assets';
 
   <div class="content">
     <div class="map-container flex flex-col gap-4">
-      <div class="argentina-map bg-white text-sm">
-        <!-- Mapa de fondo de Argentina -->
-        <Image class="w-full" src={mapa} alt="mapa" />
+     <div class="argentina-map bg-white text-sm">
+  <!-- Mapa de fondo de Argentina -->
+  <Image class="w-full" src={mapa} alt="mapa" />
 
-        <!-- Provincias con datos -->
-        <div
-          class="province buenos-aires level-5 pulse"
-          data-province="Buenos Aires"
-          data-tonnage="3526"
-        >
-          <div class="province-label">Buenos Aires<br />3.526</div>
-        </div>
-        <div
-          class="province mendoza level-3 pulse"
-          data-province="Mendoza"
-          data-tonnage="76"
-        >
-          <div class="province-label">Mendoza<br />76</div>
-        </div>
-        <div
-          class="province cordoba level-4 pulse"
-          data-province="Córdoba"
-          data-tonnage="130,000"
-        >
-          <div class="province-label">Córdoba<br />130</div>
-        </div>
-        <div
-          class="province santa-fe level-5 pulse"
-          data-province="Santa Fe"
-          data-tonnage="95,000"
-        >
-          <div class="province-label">Santa Fe<br />275</div>
-        </div>
-        <div
-          class="province tucuman level-2 pulse"
-          data-province="Tucumán"
-          data-tonnage="45,000"
-        >
-          <div class="province-label">Tucumán<br />28</div>
-        </div>
-         <div
-          class="province catamarca level-2 pulse"
-          data-province="Catamarca"
-          data-tonnage="45,000"
-        >
-          <div class="province-label">Catamarca<br />28</div>
-        </div>
-         <div
-          class="province jujuy level-2 pulse"
-          data-province="Jujuy"
-          data-tonnage="45,000"
-        >
-          <div class="province-label">Jujuy<br />28</div>
-        </div>
-         <div
-          class="province chubut level-5 pulse"
-          data-province="Chubut"
-          data-tonnage="45,000"
-        >
-          <div class="province-label">Chubut<br />228</div>
-        </div>
-         <div
-          class="province misiones level-1 pulse"
-          data-province="Misiones"
-          data-tonnage="45,000"
-        >
-          <div class="province-label">Misiones<br />5</div>
-        </div>
-         <div
-          class="province rio-negro level-4 pulse"
-          data-province="RioNegro"
-          data-tonnage="45,000"
-        >
-          <div class="province-label">Rio Negro<br />105</div>
-        </div>
-         <div
-          class="province san-luis level-1 pulse"
-          data-province="San Luis"
-          data-tonnage="45,000"
-        >
-          <div class="province-label">San Luis<br />4</div>
-        </div>
-         <div
-          class="province santiago level-2 pulse"
-          data-province="Santiago"
-          data-tonnage="45,000"
-        >
-          <div class="province-label">Santiago del Estero<br />24</div>
-        </div>
-         <div
-          class="province caba level-2 pulse"
-          data-province="Caba"
-          data-tonnage="45,000"
-        >
-          <div class="province-label">CABA<br />15</div>
-        </div>
-        <div
-          class="province salta level-3 pulse"
-          data-province="Salta"
-          data-tonnage="78,000"
-        >
-          <div class="province-label">Salta<br />52</div>
-        </div>
-        <div
-          class="province neuquen level-4 pulse"
-          data-province="Neuquén"
-          data-tonnage="88,000"
-        >
-          <div class="province-label">Neuquén<br />130</div>
-        </div>
-        <div
-          class="province entre-rios level-4 pulse"
-          data-province="Entre Ríos"
-          data-tonnage="34,000"
-        >
-          <div class="province-label">Entre Ríos<br />181</div>
-        </div>
-      </div>
-         <div class="legend">
+  <!-- Provincias con datos -->
+  {stats.map(stat => (
+    <div
+      class={`province ${stat.cssClass} level-${stat.level} pulse`}
+      data-province={stat.name}
+      data-tonnage={stat.tonnage}
+    >
+      <div class="province-label">{stat.name}<br />{stat.tonnage} t</div>
+    </div>
+  ))}
+         <!-- <div class="legend">
         <div class="legend-item">
           <div class="legend-color level-1"></div>
           <span>0 - 10 toneladas</span>
@@ -159,134 +77,32 @@ import { Font } from 'astro:assets';
           <div class="legend-color level-5"></div>
           <span>Más de 200 toneladas</span>
         </div>
-      </div>
+         </div> -->
+         <div class="total-exports">
+           <div class="total-number">{totalTonnage.toLocaleString("es-AR")} t</div>
+           <div class="total-label">Toneladas Totales Exportadas</div>
+         </div>
+</div>
     </div>
 
     <div class="stats-container">
-      <div class="stats-panel">
+      
+   <div class="stats-panel">
         <div class="stats-title">Toneladas exportadas</div>
-        <div class="stat-item">
-          <div style="display: flex; align-items: center;">
-            <div class="color-indicator level-5"></div>
-            <span class="province-name">Buenos Aires</span>
+        {stats.map(stat => (
+          <div class="stat-item">
+            <div style="display: flex; align-items: center;">
+              <div class={`color-indicator level-${stat.level}`}></div>
+              <span class="province-name">{stat.name}</span>
+            </div>
+            <p class="tonnage">{stat.tonnage} <span class="text-slate-500">t</span></p>
           </div>
-          <span class="tonnage">3.526 ton</span>
-        </div>
-        <div class="stat-item">
-          <div style="display: flex; align-items: center;">
-            <div class="color-indicator level-4"></div>
-            <span class="province-name">Córdoba</span>
-          </div>
-          <span class="tonnage">130 ton</span>
-        </div>
-        <div class="stat-item">
-          <div style="display: flex; align-items: center;">
-            <div class="color-indicator level-5"></div>
-            <span class="province-name">Santa Fe</span>
-          </div>
-          <span class="tonnage">275 ton</span>
-        </div>
-        <div class="stat-item">
-          <div style="display: flex; align-items: center;">
-            <div class="color-indicator level-4"></div>
-            <span class="province-name">Neuquén</span>
-          </div>
-          <span class="tonnage">130 ton</span>
-        </div>
-        <div class="stat-item">
-          <div style="display: flex; align-items: center;">
-            <div class="color-indicator level-2"></div>
-            <span class="province-name">Salta</span>
-          </div>
-          <span class="tonnage">52 ton</span>
-        </div>
-        <div class="stat-item">
-          <div style="display: flex; align-items: center;">
-            <div class="color-indicator level-2"></div>
-            <span class="province-name">Mendoza</span>
-          </div>
-          <span class="tonnage">76 ton</span>
-        </div>
-        <div class="stat-item">
-          <div style="display: flex; align-items: center;">
-            <div class="color-indicator level-1"></div>
-            <span class="province-name">Tucumán</span>
-          </div>
-          <span class="tonnage">28 ton</span>
-        </div>
-        <div class="stat-item">
-          <div style="display: flex; align-items: center;">
-            <div class="color-indicator level-3"></div>
-            <span class="province-name">Entre Ríos</span>
-          </div>
-          <span class="tonnage">181 ton</span>
-        </div>
-         <div class="stat-item">
-          <div style="display: flex; align-items: center;">
-            <div class="color-indicator level-1"></div>
-            <span class="province-name">Catamarca</span>
-          </div>
-          <span class="tonnage">34 ton</span>
-        </div>
-         <div class="stat-item">
-          <div style="display: flex; align-items: center;">
-            <div class="color-indicator level-5"></div>
-            <span class="province-name">Chubut</span>
-          </div>
-          <span class="tonnage">228 ton</span>
-        </div>
-         <div class="stat-item">
-          <div style="display: flex; align-items: center;">
-            <div class="color-indicator level-3"></div>
-            <span class="province-name">Jujuy</span>
-          </div>
-          <span class="tonnage">134 ton</span>
-        </div>
-         <div class="stat-item">
-          <div style="display: flex; align-items: center;">
-            <div class="color-indicator level-1"></div>
-            <span class="province-name">Misiones</span>
-          </div>
-          <span class="tonnage">5 ton</span>
-        </div>
-         <div class="stat-item">
-          <div style="display: flex; align-items: center;">
-            <div class="color-indicator level-1"></div>
-            <span class="province-name">Rio Negro</span>
-          </div>
-          <span class="tonnage">105 ton</span>
-        </div>
-         <div class="stat-item">
-          <div style="display: flex; align-items: center;">
-            <div class="color-indicator level-1"></div>
-            <span class="province-name">San Luis</span>
-          </div>
-          <span class="tonnage">4 ton</span>
-        </div>
-         <div class="stat-item">
-          <div style="display: flex; align-items: center;">
-            <div class="color-indicator level-1"></div>
-            <span class="province-name">Santiago del Estero</span>
-          </div>
-          <span class="tonnage">24 ton</span>
-        </div>
-         <div class="stat-item">
-          <div style="display: flex; align-items: center;">
-            <div class="color-indicator level-1"></div>
-            <span class="province-name">CABA</span>
-          </div>
-          <span class="tonnage">15 ton</span>
-        </div>
-      </div>
-
+        ))}
    
 
-      <div class="total-exports">
-        <div class="total-number">4.915</div>
-        <div class="total-label">Toneladas Totales Exportadas</div>
-      </div>
-    </div>
   </div>
+</div>
+
 </div>
 
 <style>
@@ -329,7 +145,7 @@ import { Font } from 'astro:assets';
   }
 
   .argentina-map {
-    height: 880px;
+    height: 922px;
     border-radius: 15px;
     border: 2px solid #e9ecef;
     position: relative;
@@ -387,16 +203,16 @@ import { Font } from 'astro:assets';
 
   /* Colores según toneladas */
   .level-1 {
-    background: linear-gradient(135deg, #ef7e7e, #e87f76);
+     background: linear-gradient(135deg, #feca57, #e89c65);
   } /* 0-50k */
   .level-2 {
     background: linear-gradient(135deg, #feca57, #e89c65);
   } /* 50k-100k */
   .level-3 {
-    background: linear-gradient(135deg, #48dbfb, #0abde3);
+  background: linear-gradient(135deg, #5a8dea, #48aaeb);
   } /* 100k-150k */
   .level-4 {
-    background: linear-gradient(135deg, #1dd1a1, #10ac84);
+    background: linear-gradient(135deg, #5a8dea, #48aaeb);
   } /* 150k-200k */
   .level-5 {
     background: linear-gradient(135deg, #5a8dea, #48aaeb);
@@ -593,7 +409,9 @@ import { Font } from 'astro:assets';
     border-radius: 15px;
     padding: 25px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 65px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
   .total-number {
