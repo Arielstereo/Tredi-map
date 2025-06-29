@@ -78,10 +78,13 @@ const totalTonnage = stats.reduce((sum, stat) => sum + stat.tonnage, 0);
           <span>Más de 200 toneladas</span>
         </div>
          </div> -->
-         <div class="total-exports">
-           <div class="total-number">{totalTonnage.toLocaleString("es-AR")} t</div>
-           <div class="total-label">Toneladas Totales Exportadas</div>
-         </div>
+          <div class="total-exports">
+            <div class="total-number">{totalTonnage.toLocaleString("es-AR")} t</div>
+            <div class="total-label">Toneladas Totales Exportadas</div>
+          </div>
+            <div class="flex justify-center items-center gap-4 text-lg">
+            <a class="hover:text-sky-400" href="https://www.trediargentina.com.ar/">www.trediargentina.com.ar</a>
+            </div>
 </div>
     </div>
 
@@ -98,8 +101,6 @@ const totalTonnage = stats.reduce((sum, stat) => sum + stat.tonnage, 0);
             <p class="tonnage">{stat.tonnage} <span class="text-slate-500">t</span></p>
           </div>
         ))}
-   
-
   </div>
 </div>
 
@@ -409,7 +410,7 @@ const totalTonnage = stats.reduce((sum, stat) => sum + stat.tonnage, 0);
     border-radius: 15px;
     padding: 25px;
     text-align: center;
-    margin-top: 65px;
+    margin-top: 50px;
     margin-left: 10px;
     margin-right: 10px;
   }

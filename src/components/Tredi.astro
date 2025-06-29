@@ -3,6 +3,9 @@ import tredi from "../assets/tredi.png";
 import { Image } from "astro:assets";
 ---
 
-<div class="flex justify-center items-center mt-32 lg:hidden">
+<div class="flex flex-col gap-8 justify-center items-center mt-32 lg:hidden">
   <Image class="w-3/4" src={tredi} alt="logo" />
+  <span class="text-slate-100 font-semibold"
+    >Versión disponible solo para escritorio.</span
+  >
 </div>
